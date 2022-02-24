@@ -1,0 +1,788 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <script type="text/javascript" src="https://app.kshost.com.br/streaming2/inc/ajax-streaming.js"></script>
+    <script type="text/javascript" src="https://app.kshost.com.br/streaming2/inc/javascript.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700&amp;display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <style>
+        body.single header {
+            top: 100px;
+        }
+
+        body.light .playerPosition {
+            background: #fff !important;
+        }
+
+        body.dark .playerPosition {
+            background: #141414 !important;
+        }
+
+        body.single.dark .playerPosition {
+            background: #09080d !important;
+        }
+
+        body {
+            padding-top: 100px;
+        }
+
+        .playerPosition {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            z-index: 100;
+        }
+
+        #playerBeat {
+            display: block;
+            background: #f6f6f6;
+            height: 100px;
+        }
+
+        .containerPlayer {
+            height: 100px;
+            position: relative;
+        }
+
+        #playpause {
+            height: 70px;
+            width: 70px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -35px;
+            margin-top: -35px;
+            display: block;
+        }
+
+        #playpause .icon {
+            display: none;
+            transition-duration: 0.3s;
+            background: #ffffff;
+        }
+
+        #playpause .icon i {
+            font-size: 81px;
+            color: #333
+        }
+
+        #playpause .iconPlaying {
+            cursor: pointer;
+            position: relative;
+            display: block;
+            z-index: 2;
+            border-radius: 50%;
+            width: 70px;
+            line-height: 71px;
+            margin-top: -4px
+        }
+
+        #playpause .iconStoped {
+            cursor: pointer;
+            position: absolute;
+            display: block;
+            z-index: 2;
+            border-radius: 50%;
+            margin-left: 40px;
+            top: 50%;
+            left: 50%;
+            margin-top: -15px;
+            width: 30px;
+        }
+
+        #playpause .iconVolume {
+            cursor: pointer;
+            position: absolute;
+            display: block;
+            z-index: 2;
+            border-radius: 50%;
+            margin-right: 40px;
+            top: 50%;
+            right: 50%;
+            margin-top: -15px;
+            width: 30px;
+        }
+
+        #playpause .icon:hover {
+            transform: scale(1.2);
+            transition-duration: 0.3s;
+        }
+
+        #playpause .iconStoped i {
+            font-size: 30px;
+        }
+
+        #playpause .iconVolume i {
+            font-size: 13px;
+            color: #ffffff;
+            display: block;
+            background: #333;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .containerAnimation {
+            height: 100px;
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            display: block;
+            opacity: 0.3;
+        }
+
+        .animation>div {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            border: solid 1px #333;
+            left: 50%;
+            top: 50%;
+            margin-left: -40px;
+            margin-top: -40px;
+            display: block;
+            position: absolute;
+        }
+
+        .animation>div+div {
+            width: 90px;
+            height: 90px;
+            margin-left: -45px;
+            margin-top: -45px;
+        }
+
+        .animation>div+div+div {
+            width: 100px;
+            height: 100px;
+            margin-left: -50px;
+            margin-top: -50px;
+        }
+
+        .animation>div+div+div+div {
+            width: 110px;
+            height: 110px;
+            margin-left: -55px;
+            margin-top: -55px;
+        }
+
+        .animation>div+div+div+div+div {
+            width: 120px;
+            height: 120px;
+            margin-left: -60px;
+            margin-top: -60px;
+        }
+
+        .animation>div+div+div+div+div+div {
+            width: 140px;
+            height: 140px;
+            margin-left: -70px;
+            margin-top: -70px;
+        }
+
+        .animation>div+div+div+div+div+div+div {
+            width: 160px;
+            height: 160px;
+            margin-left: -80px;
+            margin-top: -80px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div {
+            width: 180px;
+            height: 180px;
+            margin-left: -90px;
+            margin-top: -90px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div {
+            width: 200px;
+            height: 200px;
+            margin-left: -100px;
+            margin-top: -100px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div {
+            width: 240px;
+            height: 240px;
+            margin-left: -120px;
+            margin-top: -120px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div {
+            width: 280px;
+            height: 280px;
+            margin-left: -140px;
+            margin-top: -140px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 320px;
+            height: 320px;
+            margin-left: -160px;
+            margin-top: -160px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 360px;
+            height: 360px;
+            margin-left: -180px;
+            margin-top: -180px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 400px;
+            height: 400px;
+            margin-left: -200px;
+            margin-top: -200px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 500px;
+            height: 500px;
+            margin-left: -250px;
+            margin-top: -250px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 600px;
+            height: 600px;
+            margin-left: -300px;
+            margin-top: -300px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 700px;
+            height: 700px;
+            margin-left: -350px;
+            margin-top: -350px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 900px;
+            height: 900px;
+            margin-left: -450px;
+            margin-top: -450px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 1200px;
+            height: 1200px;
+            margin-left: -600px;
+            margin-top: -600px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 1500px;
+            height: 1500px;
+            margin-left: -750px;
+            margin-top: -750px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 1800px;
+            height: 1800px;
+            margin-left: -900px;
+            margin-top: -900px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 2200px;
+            height: 2200px;
+            margin-left: -1100px;
+            margin-top: -1100px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 2600px;
+            height: 2600px;
+            margin-left: -1300px;
+            margin-top: -1300px;
+        }
+
+        .animation>div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div+div {
+            width: 3000px;
+            height: 3000px;
+            margin-left: -1500px;
+            margin-top: -1500px;
+        }
+
+        #playerBeat .volumeContainer {
+            border-radius: 5px;
+            position: absolute;
+            left: -35px;
+            top: 60px;
+            z-index: 10;
+            padding: 10px;
+            background: #ffffff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        #playerBeat #slider {
+            background: rgba(0, 0, 0, 0.1);
+            width: 8px;
+            height: 80px;
+            position: relative;
+        }
+
+        #playerBeat .ui-slider .ui-slider-handle {
+            background: #333;
+            border: solid 1px #333;
+            box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            z-index: 2;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-left: -7px;
+            cursor: pointer;
+            right: -4px;
+            margin-bottom: -7px;
+        }
+
+        #playerBeat .ui-slider .ui-slider-handle:focus {
+            outline: none;
+        }
+
+        #playerBeat .ui-slider-range {
+            width: 8px;
+            border-radius: 5px;
+            background: #333;
+            border: solid 1px #333;
+            position: absolute;
+            bottom: 0px;
+        }
+
+        #playerBeat .fa-volume-down {
+            position: absolute;
+            left: -22px;
+            top: -3px;
+            font-size: 15px;
+            color: #333
+        }
+
+        #playerBeat .imgPlayerCapa {
+            float: left;
+            border-radius: 50%;
+            overflow: hidden;
+            border: solid 3px #333;
+            width: 50px;
+            height: 50px;
+            margin: 25px 10px 25px 0px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        #playerBeat .imgPlayerCapa img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #playerBeat .statusStream {
+            color: #333;
+            font-size: 11px;
+            z-index: 2;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 12px 20px;
+            float: left;
+            margin: 30px 0px;
+            width: 100%;
+            max-width: 390px;
+            font-family: arial;
+        }
+
+        #playerBeat .statusStream span {
+            color: #333;
+        }
+
+        #playerBeat .statusStream span+span {
+            color: #363636;
+            opacity: 0.8;
+        }
+
+        .linksPlayrs {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+            float: right;
+        }
+
+        .linksPlayrs li {
+            display: inline-block;
+            position: relative;
+            width: 43px;
+        }
+
+        .linksPlayrs li a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ffffff;
+            text-align: center;
+            display: block;
+            line-height: 75px;
+            transition-duration: 0.3s;
+            font-size: 21px;
+            margin: 30px 0px;
+        }
+
+        .linksPlayrs li a:hover {
+            opacity: 0.7;
+            transition-duration: 0.3s;
+        }
+
+        .linksPlayrs li a .helper {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        .linksPlayrs li a img {
+            vertical-align: middle;
+            opacity: 0.8;
+        }
+
+        .linksPlayrs:before {
+            display: block;
+        }
+
+        .linksPlayrs li a i {
+            color: #333;
+            position: relative;
+            top: 1px;
+            line-height: 39px;
+        }
+
+        .linksPlayrs li .tooltip:before {
+            content: "";
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #333;
+            position: absolute;
+            top: -5px;
+            left: 54px;
+        }
+
+        .linksPlayrs li .tooltip {
+            margin-left: -46px;
+            opacity: 0;
+            width: 115px;
+            margin-top: -21px;
+            background: #333;
+            border-radius: 5px;
+            padding: 7px;
+            color: white;
+            text-align: center;
+            transition-duration: 0.2s;
+            font-size: 11px;
+        }
+
+        .linksPlayrs li:hover .tooltip {
+            opacity: 1;
+        }
+
+        .tooltip .tooltip-inner {
+            background-color: #333;
+        }
+
+        .tooltip.bottom .tooltip-arrow {
+            border-bottom-color: #333;
+        }
+
+        .tooltip.top .tooltip-arrow {
+            border-top-color: #333;
+        }
+
+        .tooltip.left .tooltip-arrow {
+            border-left-color: #333;
+        }
+
+        .tooltip.right .tooltip-arrow {
+            border-right-color: #333;
+        }
+
+        #playerBeat .statusStream span+marquee {
+            max-width: calc(100% - 100px);
+            float: right;
+            margin-left: 8px;
+            height: 14px;
+            margin-bottom: -9px;
+        }
+
+        .linksPlayrs li,
+        .linksPlayrs {
+            border-right: 0px !important;
+        }
+
+        @media (max-width: 720px) {
+
+            .linksPlayrs li,
+            .linksPlayrs {
+                display: none;
+            }
+        }
+
+        @media (min-width: 768px) {
+            #playerBeat .container {
+                width: 750px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            #playerBeat .container {
+                width: 970px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            #playerBeat .container {
+                width: 1170px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            #playerBeat .statusStream {
+                max-width: 295px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .willOpacity {
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 415px) {
+            #playerBeat .container {
+                height: 100px;
+            }
+
+            .statusStream.willOpacity {
+                display: none;
+            }
+        }
+
+        #playerBeat .container {
+            margin-right: auto;
+            margin-left: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .statusStream marquee {
+            font-family: "Montserrat", Arial, Helvetica, sans-serif !important;
+        }
+
+        ul,
+        li,
+        ol {
+            margin: 0;
+            padding: 0;
+        }
+
+        .statusStream span,
+        .linksPlayrs li .tooltip,
+        .buttonZap span,
+        .buttonZap span.nbmr,
+        .locutor span,
+        .formPedidos p,
+        .pedidoMusicaWidget .containerTxtPedidos,
+        .pedidoMusicaWidget span,
+        .pagination>li>a,
+        .pagination>li>span,
+        .locutor strong,
+        .locutor p,
+        #footer h3,
+        #footer span,
+        #footer p,
+        .input-poll_option_id .radio-content div .text-overflow label,
+        body,
+        .p2,
+        .p3s,
+        .p3,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .divTema ul li a {
+            font-family: "Montserrat", Arial, Helvetica, sans-serif !important;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="playerBeat" class="playerPosition">
+        <div class="containerAnimation">
+            <div class="animation">
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 0.97866;"></div>
+                <div style="opacity: 0.36554;"></div>
+                <div style="opacity: 0;"></div>
+                <div style="opacity: 0;"></div>
+                <div style="opacity: 0;"></div>
+                <div style="opacity: 0.0198532;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+                <div style="opacity: 1;"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="containerPlayer">
+                <audio id="player" preload="none">
+                    <source src="https://stream.loopert.com/stream/51" type="audio/mpeg">
+                    <span>Your browser dont support that element.</span>
+                </audio>
+
+                <div id="playpause" class="stoped">
+                    <span class="icon iconPlaying"><i class="fa fa-play-circle"></i></span>
+                    <span class="icon iconStoped"><i class="fa fa-pause-circle"></i></span>
+                    <span class="icon iconVolume"><i class="fa fa-volume-up"></i></span>
+                    <div class="volumeContainer hidden-xs">
+                        <div id="slider" class="ui-slider ui-slider-vertical ui-widget ui-widget-content ui-corner-all">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"
+                                style="height: 50%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all"
+                                tabindex="0" style="bottom: 50%;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="imgPlayerCapa willOpacity rf-player-background"
+                    style="background-image: url(&quot;https://spaceks.net/site/images/music_template.jpg&quot;);">
+                </div>
+
+                <div class="statusStream willOpacity">
+                    <span style="font-weight: bold;">Tocando Agora:</span>
+                    <marquee class="status cc_streaminfo" data-type="song" data-username="hoostcom" id="tocando"
+                        style="color: #333;opacity: 1;">Rádio PH</marquee>
+                </div>
+
+                <ul class="linksPlayrs hidden-sm hidden-xs">
+                    <li>
+                        <a href="http://app.kshost.com.br/player/11488/realplayer.rm" target="_blank" class="android">
+                            <span class="helper"></span><i class="fa fa-play-circle-o"></i>
+                        </a>
+                        <div class="tooltip fade bottom in">Real Player</div>
+                    </li>
+                    <li>
+                        <a href="http://app.kshost.com.br/player/11488/mediaplayer.asx" target="_blank" class="android">
+                            <span class="helper"></span><i class="fa fa-play-circle"></i>
+                        </a>
+                        <div class="tooltip fade bottom in">Media Player</div>
+                    </li>
+                    <li>
+                        <a href="http://app.kshost.com.br/player/11488/winamp.pls" target="_blank" class="ios">
+                            <span class="helper"></span><i class="fa fa-bolt"></i>
+                        </a>
+                        <div class="tooltip fade bottom in">Winamp</div>
+                    </li>
+
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://phradio.com.br/hotsite"
+                            onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                            class="ios">
+                            <span class="helper"></span><i class="fa fa-facebook"></i>
+                        </a>
+                        <div class="tooltip fade bottom in">Facebook</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://app.kshost.com.br/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="https://spaceks.net/site/js/jquery-ui.js"></script>
+    <script>
+        $(".linksPlayrs .pedidoMusica").click(function () {
+            $(".overPedido").show();
+            $(".formPedidos").slideDown('500');
+            return false;
+        });
+
+
+    </script>
+
+    <script>
+        $.ajax({
+            type: "GET", url: "https://websitenoar.net/last/music.php?hts=hts03&porta=11488", success: function (data) {
+                data = data.split("||IMAGE||"); $("#tocando").html(data[0]); $(".rf-player-background").css("background-image", "url(" + data[1] + ")");
+            }
+        });
+        setInterval(() => {
+            $.ajax({
+                type: "GET", url: "https://websitenoar.net/last/music.php?hts=hts03&porta=11488", success: function (data) {
+                    data = data.split("||IMAGE||"); $("#tocando").html(data[0]); $(".rf-player-background").css("background-image", "url(" + data[1] + ")");
+                }
+            });
+        }, 30000);
+
+        $(function () {
+            setInterval(function () {
+                $(".animation div").each(function (index) {
+                    $(this).delay(100 * index).animate({ 'opacity': '0' }, 100, function () {
+                        $(this).delay(50 * index).animate({ 'opacity': '1' }, 300);
+                    });
+                });
+            }, 3000);
+
+            isPlaying = false;
+            player = document.getElementById("player");
+            $('.iconPlaying').click(function () {
+                if (!isPlaying) {
+                    player.currentTime = 0; player.src = "https://stream.loopert.com/stream/51";
+                    player.load(); player.play(); isPlaying = true;
+                }
+            });
+
+            $('.iconStoped').click(function () { player.pause(); player.src = ""; player.currentTime = 0; isPlaying = false; });
+
+            isSliderShowing = false;
+            $("body").click(function (event) {
+                if (event.toElement.className != 'fa fa-volume-up' && event.toElement.className != 'volumeContainer hidden-xs'
+                    && event.toElement.className != 'ui-slider ui-slider-vertical ui-widget ui-widget-content ui-corner-all') {
+                    if (isSliderShowing) { $('.volumeContainer').slideToggle(300); isSliderShowing = false; }
+                }
+            })
+
+            $('.iconVolume').click(function () {
+                $('.volumeContainer').slideToggle(300);
+                if (isSliderShowing) { isSliderShowing = false; } else { isSliderShowing = true; }
+            });
+
+            $('#slider').slider({
+                orientation: "vertical", range: "min", value: 50, min: 0, max: 100, animate: true,
+                change: function (event, ui) { volume = ui.value; player.volume = volume / 100; }
+            });
+        }); 
+    </script>
+</body>
+
+</html>
